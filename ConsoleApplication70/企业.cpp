@@ -3,8 +3,6 @@
 #include <conio.h>
 #include<istream>
 #include<fstream>  
-
-
 using namespace std;
 //******************货物相关****************
 class GoodsKinds
@@ -13,7 +11,7 @@ public:
 	char GoodsName[20];//商品名称
 	int GoodsPrice;//商品单价
 	int GoodsNum;//商品数量
-	int PriceOfAllGoods;//商品总价
+	int PriceOfAllGoods=GoodsNum*GoodsPrice;//商品总价
 	int Money;//公司自有资金
 	GoodsKinds* next;
 	void InPut();//输入信息
@@ -39,7 +37,6 @@ public:
 	~Goods();
 	void ShowMenu();//输出菜单
 	void Find();
-	void Swap();//查找
 	void Save();//保存
 	void ModifyItem();//修改函数
 	void Sort();
@@ -69,7 +66,7 @@ public:
 		GoodsKinds*FindGoods(char* GoodsName)
 		{
 			for (GoodsKinds*p = head->next; p->next!= End; p = p->next)
-				if (!strcmp(p->next->GoodsName, GoodsName))
+				if (!strcmp(p->GoodsName, GoodsName))
 					return p;
 		}
 };
@@ -171,9 +168,9 @@ void Goods::ModifyItem()
 void GoodsKinds::Show()
 {
 	cout << "货物名称: " << GoodsName << endl;
-	cout << "货物单价：" << GoodsNum << endl;
-	cout << "货物数量： " << GoodsPrice << endl;
-	cout << "这些货物的价值：" << GoodsNum*GoodsPrice << endl;
+	cout << "货物单价: " << GoodsNum << endl;
+	cout << "货物数量: " << GoodsPrice << endl;
+	cout << "这些货物的价值: " << GoodsNum*GoodsPrice << endl;
 }
 //*********************菜单************************
 void Goods::ShowMenu()
@@ -181,12 +178,12 @@ void Goods::ShowMenu()
 	
 		cout << "**************************************************************************" << endl;
 		cout << "〓〓〓〓〓〓〓〓〓〓  ☆  货  物 管 理 系  统     ☆  〓〓〓〓〓〓〓〓〓〓" << endl;
-		cout << "〓〓〓〓〓〓〓★★★★★       ★★★★★★★       ★★★★★〓〓〓〓〓〓〓" << endl;
+		cout << "〓〓〓〓〓〓〓★★★★★       ★★★★★★★      ★★★★★〓〓〓〓〓〓〓" << endl;
 		cout << "〓〓〓〓〓〓〓〓〓★  ☆       1.增减货物/数量     ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
 		cout << "〓〓〓〓〓〓〓〓〓★  ☆       2.显示货物/数量     ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
 		cout << "〓〓〓〓〓〓〓〓〓★  ☆       3.排序货物/数量     ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
-		cout << "〓〓〓〓〓〓〓〓〓★  ☆       4.查找货物/数量     ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
-		cout << "〓〓〓〓〓〓〓〓〓★  ☆       5.修改货物/数量     ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
+		cout << "〓〓〓〓〓〓〓〓〓★  ☆       4.修改货物/数量     ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
+		cout << "〓〓〓〓〓〓〓〓〓★  ☆       5.查找货物/数量     ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
 		cout << "〓〓〓〓〓〓〓〓〓★  ☆               v           ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
 		cout << "〓〓〓〓〓〓〓〓〓★  ☆       0.安全退出系统      ☆  ★〓〓〓〓〓〓〓〓〓" << endl;
 		cout << "\n\t\t\n\t\t请选择：";
@@ -204,7 +201,7 @@ void Goods::ShowMenu()
 	cin >> GoodsName;
 	if (p = FindGoods(GoodsName))
 	{
-		p->next->Show();
+		p->Show();
 		cout << "\t\t请继续输入。。。";
 		getch();
 	}
@@ -276,7 +273,7 @@ void Goods::Sort()
 		 {
 		 case 1:start. AddItem(); break;
 		 case 2:start.DisPlay(); break;
-		 //case 3:start.Sort(); break;
+		 case 3:start.Sort(); break;
 		 case 4:start.ModifyItem(); break;
 		 case 5:start.Find(); break;
 		 case 0:quit = true; break;
